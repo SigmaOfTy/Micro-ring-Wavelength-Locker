@@ -1,8 +1,8 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
-"../../../../project_1.srcs/sources_1/new/cic_decimator_4th.v" \
-"../../../../project_1.srcs/sources_1/new/sdm_cifb_3rd_4bit.v" \
-"../../../../project_1.srcs/sim_1/new/testbench.v" \
+"../../../../sigma_delta.srcs/sources_1/new/cic_decimator_4th.v" \
+"../../../../sigma_delta.srcs/sources_1/new/sdm_cifb_3rd_4bit.v" \
+"../../../../sigma_delta.srcs/sim_1/new/testbench.v" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

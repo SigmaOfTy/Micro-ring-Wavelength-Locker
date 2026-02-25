@@ -1,0 +1,8 @@
+0.7
+2020.2
+Nov  8 2024
+22:36:57
+F:/sigmadelta/sigma_delta/sigma_delta.sim/sim_1/behav/xsim/glbl.v,1724786425,verilog,,,,glbl,,,,,,,,
+F:/sigmadelta/sigma_delta/sigma_delta.srcs/sim_1/new/testbench.v,1772014580,verilog,,,,tb_sdm_behav,,,,,,,,
+F:/sigmadelta/sigma_delta/sigma_delta.srcs/sources_1/new/cic_decimator_4th.v,1772001024,verilog,,F:/sigmadelta/sigma_delta/sigma_delta.srcs/sources_1/new/sdm_cifb_3rd_4bit.v,,cic_decimator_4th,,,,,,,,
+F:/sigmadelta/sigma_delta/sigma_delta.srcs/sources_1/new/sdm_cifb_3rd_4bit.v,1772014463,verilog,,F:/sigmadelta/sigma_delta/sigma_delta.srcs/sim_1/new/testbench.v,,sdm_cifb_3rd_4bit,,,,,,,,
