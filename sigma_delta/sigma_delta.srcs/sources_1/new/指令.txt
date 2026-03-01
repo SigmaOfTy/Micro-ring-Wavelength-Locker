@@ -1,0 +1,2 @@
+iverilog -o simv tb_system_top.v system_top.v interpolation_top.v fir_stage1.v fir_stage2.v sdm_cifb_3rd_4bit.v
+vvp simv

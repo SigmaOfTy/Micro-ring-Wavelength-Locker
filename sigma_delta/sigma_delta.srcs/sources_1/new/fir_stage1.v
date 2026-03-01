@@ -143,7 +143,7 @@ always @(posedge clk or negedge rst_n) begin
         data_out <= 16'd0;
     end else if (en) begin
         // 四舍五入截断逻辑 (从 Q17 还原) 并存入输出寄存器
-        data_out <= (full_sum + (1 << 16)) >>> 17;
+        data_out <= (full_sum + (1 << 16)) >>> 16;
     end
 end
 
