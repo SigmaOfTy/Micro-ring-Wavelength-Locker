@@ -1,0 +1,18 @@
+# 忽略 Vivado 自动生成的运行目录
+project/
+*.jou
+*.log
+*.str
+*.csv
+
+# 忽略编译产生的比特流和硬件导出
+*.runs/
+*.gen/
+*.out/
+*.bit
+*.bin
+
+# 仅保留你手动创建的文件夹和 Tcl 脚本
+!src/
+!sims/
+!rebuild_project.tcl
