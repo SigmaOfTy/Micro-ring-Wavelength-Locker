@@ -1,0 +1,92 @@
+<tid>
+ <library counter="25" name="12bitDAC">
+  <file relPath="../12bitDAC/decoder3to7/functional/verilog.v" counter="6">
+   <absPath>/home/meow/EDA/workspace/12bitDAC/decoder3to7/functional/verilog.v</absPath>
+   <isReference>false</isReference>
+   <view counter="3" name="functional">
+    <language>Verilog</language>
+    <incBlocks>decoder3to7</incBlocks>
+    <data counter="4">
+     <mapping counter="4">
+      <libList>myLib</libList>
+      <viewList></viewList>
+      <defaultLibOrder value="false"/>
+      <defaultViewOrder value="true"/>
+     </mapping>
+     <options counter="0">
+      <parserArgs></parserArgs>
+      <inheritedSupply value="true"/>
+      <zero defaultNet="tie0" propName="tieLoNet" netName="tie0"/>
+      <one defaultNet="tie1" propName="tieHiNet" netName="tie1"/>
+     </options>
+    </data>
+   </view>
+  </file>
+  <file relPath="../12bitDAC/system_top/functional/verilog.v" counter="6">
+   <absPath>/home/meow/EDA/workspace/12bitDAC/system_top/functional/verilog.v</absPath>
+   <isReference>false</isReference>
+   <view counter="3" name="functional">
+    <language>Verilog</language>
+    <incBlocks>system_top</incBlocks>
+    <data counter="4">
+     <mapping counter="4">
+      <libList>myLib 12bitDAC</libList>
+      <viewList></viewList>
+      <defaultLibOrder value="false"/>
+      <defaultViewOrder value="true"/>
+     </mapping>
+     <options counter="0">
+      <parserArgs></parserArgs>
+      <inheritedSupply value="true"/>
+      <zero defaultNet="tie0" propName="tieLoNet" netName="tie0"/>
+      <one defaultNet="tie1" propName="tieHiNet" netName="tie1"/>
+     </options>
+    </data>
+   </view>
+  </file>
+  <file relPath="../12bitDAC/verilog_DFF/functional/verilog.v" counter="6">
+   <absPath>/home/meow/EDA/workspace/12bitDAC/verilog_DFF/functional/verilog.v</absPath>
+   <isReference>false</isReference>
+   <view counter="3" name="functional">
+    <language>Verilog</language>
+    <incBlocks>verilog_DFF</incBlocks>
+    <data counter="4">
+     <mapping counter="4">
+      <libList>myLib</libList>
+      <viewList></viewList>
+      <defaultLibOrder value="false"/>
+      <defaultViewOrder value="true"/>
+     </mapping>
+     <options counter="0">
+      <parserArgs></parserArgs>
+      <inheritedSupply value="true"/>
+      <zero defaultNet="tie0" propName="tieLoNet" netName="tie0"/>
+      <one defaultNet="tie1" propName="tieHiNet" netName="tie1"/>
+     </options>
+    </data>
+   </view>
+  </file>
+  <file relPath="../12bitDAC/stimulus_gen/functional/verilog.v" counter="7">
+   <absPath>/home/meow/EDA/workspace/12bitDAC/stimulus_gen/functional/verilog.v</absPath>
+   <isReference>false</isReference>
+   <view counter="4" name="functional">
+    <language>Verilog</language>
+    <incBlocks>stimulus_gen</incBlocks>
+    <data counter="5">
+     <mapping counter="5">
+      <libList>myLib 12bitDAC</libList>
+      <viewList></viewList>
+      <defaultLibOrder value="false"/>
+      <defaultViewOrder value="true"/>
+     </mapping>
+     <options counter="0">
+      <parserArgs></parserArgs>
+      <inheritedSupply value="true"/>
+      <zero defaultNet="tie0" propName="tieLoNet" netName="tie0"/>
+      <one defaultNet="tie1" propName="tieHiNet" netName="tie1"/>
+     </options>
+    </data>
+   </view>
+  </file>
+ </library>
+</tid>

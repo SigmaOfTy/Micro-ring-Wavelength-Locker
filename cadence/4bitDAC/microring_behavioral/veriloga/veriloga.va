@@ -1,0 +1,78 @@
+`include "disciplines.vams"
+`include "constants.vams"
+
+module microring_behavioral(
+    opt_in, opt_out,
+    heater_p, heater_n,
+    lambda_mon, temp_mon
+);
+
+    electrical opt_in, opt_out;
+    electrical heater_p, heater_n;
+    electrical lambda_mon, temp_mon;
+
+    // =====  =====
+    parameter real lambda_laser = 1552.5e-9;   // laser wavelength (m)
+    parameter real lambda_res0  = 1550e-9;   // initial resonance wavelength (m)
+    parameter real ng           = 4.2;
+    parameter real L            = 20e-6;
+    parameter real coupling_k   = 0.1;
+    parameter real loss_alpha   = 0.99;
+
+    // =====  /  =====
+    parameter real dndT         = 1.8e-4;
+    parameter real R_th         = 3000;      // K/W
+    parameter real tau_th       = 120e-6;    // s
+    parameter real heater_res   = 70;        // ohm
+
+    // =====  =====
+    //  lambda_mon 
+    parameter real tau_lambda_mon = 20e-6;   // s 10us~50us 
+
+    real p_heat, deltaT;
+    real lambda_res, delta_lambda;
+    real delta_lambda_mon, lambda_mon_avg;
+    real phi, transmission;
+    real r_sqrt;
+
+    analog begin
+        // 1) Heater 
+        I(heater_p, heater_n) <+ V(heater_p, heater_n) / heater_res;
+
+        // 2) 
+        p_heat = V(heater_p, heater_n) * I(heater_p, heater_n);
+        if (p_heat < 0) p_heat = -p_heat;
+
+        // 3) : T(s)/P(s) = R_th / (1 + s*tau_th)
+        deltaT = laplace_nd(p_heat * R_th, {1}, {1, tau_th});
+
+        // 4)  -> 
+        delta_lambda = lambda_res0 * (dndT / ng) * deltaT;
+        lambda_res   = lambda_res0 + delta_lambda;
+
+        // 5)  lambda_mon opt_out 
+        delta_lambda_mon = laplace_nd(delta_lambda, {1}, {1, tau_lambda_mon});
+        lambda_mon_avg   = lambda_res0 + delta_lambda_mon;
+
+        // 6) through-port transmission lambda_res
+        phi = 2.0 * `M_PI * ng * L * (1.0 / lambda_laser - 1.0 / lambda_res);
+        r_sqrt = sqrt(1.0 - coupling_k);
+
+        transmission =
+            (loss_alpha*loss_alpha + (1.0 - coupling_k)
+             - 2.0*loss_alpha*r_sqrt*cos(phi))
+            /
+            (1.0 + loss_alpha*loss_alpha*(1.0 - coupling_k)
+             - 2.0*loss_alpha*r_sqrt*cos(phi));
+
+        if (transmission < 0) transmission = 0;
+        if (transmission > 1) transmission = 1;
+
+        // 7) 
+        V(opt_out) <+ V(opt_in) * transmission;
+
+        // 8) 
+        V(lambda_mon) <+ lambda_mon_avg * 1e9;  // : nm
+        V(temp_mon)   <+ deltaT;                // : K
+    end
+endmodule

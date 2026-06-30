@@ -1,0 +1,38 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module ideal_staircase_gen(vout);
+    output vout;
+    electrical vout;
+
+    // ==========================================
+    // 
+    // ==========================================
+    parameter real v_fs = 0.3;              //  300mV ()
+    parameter integer bits = 12;            //  12bit
+    parameter real step_time = 2.0m;        //  5ms ( 120us )
+    parameter integer start_code = 0;    //  ( 2048  150mV)
+    
+    real lsb_v;
+    real current_v;
+    integer step_cnt;
+
+    analog begin
+        // 1)  1 LSB 
+        @(initial_step) begin
+            lsb_v = v_fs / (1 << bits);     // 300mV / 4096  73.24 uV
+            step_cnt = 0;
+            current_v = start_code * lsb_v;
+        end
+
+        // 2)  step_time (5ms)  LSB
+        @(timer(step_time, step_time)) begin
+            step_cnt = step_cnt + 1;
+            current_v = (start_code + step_cnt) * lsb_v;
+        end
+
+        // 3)  transition (1us)
+        V(vout) <+ transition(current_v, 0, 1u, 1u);
+    end
+
+endmodule

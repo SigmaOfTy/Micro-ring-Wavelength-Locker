@@ -1,0 +1,58 @@
+`include "disciplines.vams"
+`include "constants.vams"
+
+module microring_behavioral(in, out, heater_p, heater_n);
+
+    // ---  ---
+    electrical in, out;                
+    electrical heater_p, heater_n; // 
+
+    // ---  ---
+    parameter real lambda_res0 = 1550e-9; 
+    parameter real ng = 4.2;              
+    parameter real L = 20e-6;             
+    parameter real coupling_k = 0.1;      
+    parameter real loss_alpha = 0.99;     
+
+    // ---  ---
+    parameter real dndT = 1.8e-4;         
+    parameter real R_th = 3000;           
+    parameter real tau_th = 120e-6;        
+    parameter real heater_res = 70;      // 
+
+    // ---  ---
+    real current_in, power_heat, temp_inst, delta_lambda, current_lambda;
+    real phi, transmission;
+    real r_sqrt;
+
+    analog begin
+        // 1.  ()
+        //  I(heater_p, heater_n) 
+        current_in = I(heater_p, heater_n);
+
+        // 2.  (P = I^2 * R)
+        // 
+        power_heat = pow(current_in, 2) * heater_res;
+
+        // 3.  ()
+        temp_inst = idt((power_heat * R_th - temp_inst) / tau_th, 0);
+
+        // 4. 
+        delta_lambda = lambda_res0 * (dndT / ng) * temp_inst;
+        current_lambda = lambda_res0 + delta_lambda;
+
+        // 5. 
+        phi = 2 * `M_PI * ng * L * (1.0/1550e-9 - 1.0/current_lambda);
+        r_sqrt = sqrt(1.0 - coupling_k);
+        transmission = (pow(loss_alpha, 2) + (1.0 - coupling_k) - 2.0*loss_alpha*r_sqrt*cos(phi)) / 
+                       (1.0 + pow(loss_alpha, 2)*(1.0 - coupling_k) - 2.0*loss_alpha*r_sqrt*cos(phi));
+
+        // 6. 
+        V(out) <+ V(in) * transmission;
+
+        // 7. 
+        //  Spectre heater_res 
+        // DAC  V = I * R 
+        I(heater_p, heater_n) <+ V(heater_p, heater_n) / heater_res;
+    end
+endmodule
